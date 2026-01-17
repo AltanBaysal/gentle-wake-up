@@ -4,6 +4,7 @@ import '../models/alarm.dart';
 import '../theme/app_theme.dart';
 import '../widgets/alarm_card.dart';
 import 'edit_alarm_screen.dart';
+import 'settings_screen.dart';
 
 class AlarmListScreen extends StatelessWidget {
   const AlarmListScreen({Key? key}) : super(key: key);
@@ -42,6 +43,17 @@ class AlarmListScreen extends StatelessWidget {
                         ),
                       ),
                     ],
+                  ),
+                  const Spacer(),
+                  IconButton(
+                    icon: const Icon(Icons.settings, color: Colors.white),
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const SettingsScreen(),
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),
