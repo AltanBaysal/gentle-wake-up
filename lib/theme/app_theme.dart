@@ -45,7 +45,7 @@ class AppTheme {
           color: textMid,
         ),
       ),
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: charcoalCard,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(24),
