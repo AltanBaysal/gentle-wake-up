@@ -18,14 +18,16 @@ class _EditAlarmScreenState extends State<EditAlarmScreen> {
   late TextEditingController _labelController;
   late bool _snoozeEnabled;
   final int _snoozeDuration = 5; // Static as per requirements
-  final bool _repeat = false; // Static as per requirements
+  // Removed unused _repeat field
 
   @override
   void initState() {
     super.initState();
     final now = DateTime.now();
-    _selectedTime = widget.alarm?.time ?? DateTime(now.year, now.month, now.day, now.hour + 1, 0);
-    _labelController = TextEditingController(text: widget.alarm?.label ?? 'Alarm');
+    _selectedTime = widget.alarm?.time ??
+        DateTime(now.year, now.month, now.day, now.hour + 1, 0);
+    _labelController =
+        TextEditingController(text: widget.alarm?.label ?? 'Alarm');
     _snoozeEnabled = widget.alarm?.snoozeEnabled ?? true;
   }
 
@@ -144,7 +146,7 @@ class _EditAlarmScreenState extends State<EditAlarmScreen> {
                         if (_snoozeEnabled) ...[
                           const SizedBox(height: 16),
                           // Snooze Duration (Display Only)
-                           _buildSettingItem(
+                          _buildSettingItem(
                             title: 'Snooze Duration',
                             child: Text(
                               '$_snoozeDuration min', // Static
@@ -179,21 +181,25 @@ class _EditAlarmScreenState extends State<EditAlarmScreen> {
                             ),
                             TextButton(
                               onPressed: () {},
-                              child: const Text('See all', style: TextStyle(color: AppTheme.primary)),
+                              child: const Text('See all',
+                                  style: TextStyle(color: AppTheme.primary)),
                             ),
                           ],
                         ),
                         const SizedBox(height: 12),
-                        _buildSoundOption('Morning Birds', 'Nature Sounds • Calm', true),
+                        _buildSoundOption(
+                            'Morning Birds', 'Nature Sounds • Calm', true),
                         const SizedBox(height: 12),
-                        _buildSoundOption('Ocean Waves', 'Water • Sleep', false),
+                        _buildSoundOption(
+                            'Ocean Waves', 'Water • Sleep', false),
                         const SizedBox(height: 12),
-                        _buildSoundOption('Rainy Mood', 'Ambience • Focus', false),
+                        _buildSoundOption(
+                            'Rainy Mood', 'Ambience • Focus', false),
                       ],
                     ),
                   ),
 
-                   const SizedBox(height: 40),
+                  const SizedBox(height: 40),
                 ],
               ),
             ),
@@ -232,10 +238,9 @@ class _EditAlarmScreenState extends State<EditAlarmScreen> {
                       child: const Text(
                         'Delete Alarm',
                         style: TextStyle(
-                          color: AppTheme.textDim,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500
-                        ),
+                            color: AppTheme.textDim,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500),
                       ),
                     ),
                   ]
@@ -282,11 +287,11 @@ class _EditAlarmScreenState extends State<EditAlarmScreen> {
             ? Border.all(color: AppTheme.primary.withOpacity(0.5))
             : Border.all(color: Colors.transparent),
         boxShadow: [
-           BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              blurRadius: 4,
-              offset: const Offset(0, 2),
-            )
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 4,
+            offset: const Offset(0, 2),
+          )
         ],
       ),
       child: Row(
@@ -319,7 +324,8 @@ class _EditAlarmScreenState extends State<EditAlarmScreen> {
                 Text(
                   title,
                   style: TextStyle(
-                    color: isSelected ? AppTheme.textHighlight : AppTheme.textMid,
+                    color:
+                        isSelected ? AppTheme.textHighlight : AppTheme.textMid,
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
                   ),
@@ -350,15 +356,16 @@ class _EditAlarmScreenState extends State<EditAlarmScreen> {
 
   void _saveAlarm() {
     final newAlarm = widget.alarm?.copyWith(
-      time: _selectedTime,
-      label: _labelController.text,
-      snoozeEnabled: _snoozeEnabled,
-    ) ?? Alarm(
-      time: _selectedTime,
-      label: _labelController.text,
-      isEnabled: true,
-      snoozeEnabled: _snoozeEnabled,
-    );
+          time: _selectedTime,
+          label: _labelController.text,
+          snoozeEnabled: _snoozeEnabled,
+        ) ??
+        Alarm(
+          time: _selectedTime,
+          label: _labelController.text,
+          isEnabled: true,
+          snoozeEnabled: _snoozeEnabled,
+        );
 
     final provider = Provider.of<AlarmProvider>(context, listen: false);
 
@@ -373,7 +380,8 @@ class _EditAlarmScreenState extends State<EditAlarmScreen> {
 
   void _deleteAlarm() {
     if (widget.alarm != null) {
-      Provider.of<AlarmProvider>(context, listen: false).deleteAlarm(widget.alarm!.id);
+      Provider.of<AlarmProvider>(context, listen: false)
+          .deleteAlarm(widget.alarm!.id);
     }
     Navigator.of(context).pop();
   }
